@@ -33,10 +33,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 models:
   delayed_arrival_project:
-    # Applies to all files under models/example/
-    delayed_arrival_curation:
-      materialized: view
-      schema: curation
+    # Applies to all files under models/delayed_arrival_staging/
     delayed_arrival_staging:
       materialized: view
-      schema: staging
+    delayed_arrival_curation:
+      materialized: view
+

@@ -7,9 +7,10 @@
 
 --imports CTE
 
-with orders_delta as 
+with cte_orders_delta as 
 (
-    select * from {{ref('Order_Delta')}}
+    --select * from {{ref('Order_Delta')}}
+    select * from LATE_ARRIVING_DEMO.RAW.STM_ORDERS_AMERICA_DELTA
 )
 
 --logic CTE
@@ -17,3 +18,5 @@ with orders_delta as
 --Final CTE
 
 --Final Select
+
+Select * from cte_orders_delta
