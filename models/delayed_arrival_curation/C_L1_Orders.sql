@@ -5,18 +5,42 @@
         )
 }}
 
---imports CTE
+--Delta CTE
 
 with cte_orders_delta as 
 (
-    --select * from {{ref('Order_Delta')}}
-    select * from LATE_ARRIVING_DEMO.RAW.STM_ORDERS_AMERICA_DELTA
+    select * from {{ref('Orders_Delta')}}
 )
 
---logic CTE
+--Base CTE
+, cte_orders_base as
+(
+    Select  
+        AUDIT_DATETIME
+        ,DELETE_FLAG
+        ,O_ORDERKEY
+        ,O_CUSTKEY
+        ,O_NATIONKEY
+        ,O_REGIONKEY
+        ,O_TOTALPRICE
+        ,O_ORDERDATE
+        ,O_CREATE_DATETIME
+        ,O_UPDATE_DATETIME
+    FROM {{ref('Orders')}}
+)
 
 --Final CTE
 
 --Final Select
-
-Select * from cte_orders_delta
+Select
+*
+from cte_orders_base B
+{% if is_incremental() %}
+ where not EXISTS
+ (
+     select 
+     O_ORDERKEY
+     from cte_orders_delta D
+     where D.O_ORDERKEY = B.O_ORDERKEY
+ ) 
+ {% endif %}
