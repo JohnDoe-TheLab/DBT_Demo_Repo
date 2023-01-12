@@ -1,3 +1,5 @@
+{{ config(schema='CUR') }}
+
 with nations as
 (
     Select

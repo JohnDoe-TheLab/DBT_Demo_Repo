@@ -36,6 +36,9 @@ models:
     # Applies to all files under models/delayed_arrival_staging/
     delayed_arrival_staging:
       materialized: view
+      database: LATE_ARRIVING_DEMO
+      schema: CUR
     delayed_arrival_curation:
       materialized: view
-
+      database: LATE_ARRIVING_DEMO
+      schema: CUR

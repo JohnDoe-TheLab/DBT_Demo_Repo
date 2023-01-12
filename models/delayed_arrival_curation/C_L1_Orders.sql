@@ -2,6 +2,7 @@
         materialized = 'incremental'
         ,tags = ["curation","orders"]
         ,unique_key = 'O_ORDERKEY'
+        ,schema='CUR'
         )
 }}
 

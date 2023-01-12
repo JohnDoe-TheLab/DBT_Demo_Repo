@@ -1,3 +1,5 @@
+{{ config(schema='CUR') }}
+
 with regions as
 (
     Select

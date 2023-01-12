@@ -1,3 +1,5 @@
+{{ config(schema='CUR') }}
+
         With Orders_Delta_America as
         (
             Select  

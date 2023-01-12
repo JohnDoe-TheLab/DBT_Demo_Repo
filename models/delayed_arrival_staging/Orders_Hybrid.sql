@@ -1,8 +1,4 @@
-{{
-  config(
-    materialized='View'
-  )
-}}
+{{ config(schema='CUR') }}
 
 
 With DELTA_AMERICA as 
