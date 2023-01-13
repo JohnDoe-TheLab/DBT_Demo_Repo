@@ -42,3 +42,7 @@ models:
       materialized: view
       database: LATE_ARRIVING_DEMO
       schema: CUR
+    delayed_arrival_presentation:
+      materialized: view
+      database: LATE_ARRIVING_DEMO
+      schema: PRES
