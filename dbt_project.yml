@@ -38,11 +38,14 @@ models:
       materialized: view
       database: LATE_ARRIVING_DEMO
       schema: CUR
+      enabled: true
     delayed_arrival_curation:
       materialized: view
       database: LATE_ARRIVING_DEMO
       schema: CUR
+      enabled: true
     delayed_arrival_presentation:
       materialized: view
       database: LATE_ARRIVING_DEMO
       schema: PRES
+      enabled: false
