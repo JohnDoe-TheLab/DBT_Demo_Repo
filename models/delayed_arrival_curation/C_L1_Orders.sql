@@ -1,3 +1,5 @@
+--This is an example of an increamental load using the Hybrid "Deferred Merge" approach
+
 {{config(
         materialized = 'incremental'
         ,tags = ["curation","orders"]

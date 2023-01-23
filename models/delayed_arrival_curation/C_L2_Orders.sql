@@ -1,8 +1,10 @@
+--This is an example of an incremental load where you do not get updates to order when you get updates or inserts to order lines.  Please also note that this table could been a level 2 table in curration based on your needs.
+
 {{config(
         materialized = 'table'
         ,tags = ["curation","orders","lines"]
         ,unique_key = 'cust_nk'
-        ,schema='PRES'
+        ,schema='CUR'
         )
 }}
 
@@ -11,7 +13,15 @@ With cte_orders_lines as
     Select 
     l_orderkey
     ,count(l_linekey) as Line_Count
-    from {{ref('C_L1_Order_Lines')}}
+    from {{ref('C_L1_Orders_Lines')}}
+
+    {% if is_incremental() %}
+
+    -- this filter will only be applied on an incremental run
+     where AUDIT_DATETIME > (select max(AUDIT_DATETIME) from {{ref('C_L1_Orders_Lines')}}
+
+    {% endif %}
+
     group by
     l_orderkey
 )
@@ -24,12 +34,12 @@ With cte_orders_lines as
     ,o_regionkey
     ,replace(to_char(o_orderdate),'-','') as d_date_sid
     ,o_totalprice
-    from {{ref('C_L1_Order')}} o
+    from {{ref('C_L1_Orders')}} o
     where exists
     (
         Select
         l_orderkey
-        from {{ref('C_L1_Order_Lines')}} ol
+        from cte_orders_lines ol
         where ol.l_orderkey = o.o_orderkey
     )
 )
