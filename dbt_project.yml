@@ -48,4 +48,4 @@ models:
       materialized: view
       database: LATE_ARRIVING_DEMO
       schema: PRES
-      enabled: false
+      enabled: true

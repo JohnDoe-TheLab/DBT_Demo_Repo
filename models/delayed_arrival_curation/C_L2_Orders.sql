@@ -1,9 +1,9 @@
 --This is an example of an incremental load where you do not get updates to order when you get updates or inserts to order lines.  Please also note that this table could been a level 2 table in curration based on your needs.
 
 {{config(
-        materialized = 'table'
+        materialized = 'incremental'
         ,tags = ["curation","orders","lines"]
-        ,unique_key = 'cust_nk'
+        ,unique_key = 'order_nk'
         ,schema='CUR'
         )
 }}
@@ -18,7 +18,7 @@ With cte_orders_lines as
     {% if is_incremental() %}
 
     -- this filter will only be applied on an incremental run
-     where AUDIT_DATETIME > (select max(AUDIT_DATETIME) from {{ref('C_L1_Orders_Lines')}}
+     where AUDIT_DATETIME > (select max(AUDIT_DATETIME) from {{ this }})
 
     {% endif %}
 
@@ -65,4 +65,5 @@ With cte_orders_lines as
 
 Select
 *
+,current_timestamp as audit_datetime
 from cte_orders_agg_logic
