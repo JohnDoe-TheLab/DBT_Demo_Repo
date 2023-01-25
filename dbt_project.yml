@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'my_new_project'
+name: 'delayed_arrival_project'
 version: '1.0.0'
 config-version: 2
 
@@ -32,7 +32,20 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  my_new_project:
-    # Applies to all files under models/example/
-    example:
+  delayed_arrival_project:
+    # Applies to all files under models/delayed_arrival_staging/
+    delayed_arrival_staging:
       materialized: view
+      database: LATE_ARRIVING_DEMO
+      schema: CUR
+      enabled: true
+    delayed_arrival_curation:
+      materialized: view
+      database: LATE_ARRIVING_DEMO
+      schema: CUR
+      enabled: true
+    delayed_arrival_presentation:
+      materialized: view
+      database: LATE_ARRIVING_DEMO
+      schema: PRES
+      enabled: true
