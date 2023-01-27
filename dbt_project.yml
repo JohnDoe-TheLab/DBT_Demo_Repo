@@ -49,3 +49,8 @@ models:
       database: LATE_ARRIVING_DEMO
       schema: PRES
       enabled: true
+    No_Run_Area:
+      materialized: view
+      database: LATE_ARRIVING_DEMO
+      schema: PRES
+      enabled: false
