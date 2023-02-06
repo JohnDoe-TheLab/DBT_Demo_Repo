@@ -15,8 +15,11 @@ as
     ,nation_nk
     ,region_nk
     ,d_date_sid
-    ,order_price
-    ,order_line_count
+    ,Total_Amt
+    ,Avg_Discount_Amt
+    ,Avg_Tax_Amt
+    ,Order_Qty
+    ,Order_Line_Count
     from {{ref('C_L2_Orders')}} co
     {% if is_incremental() %}
 
@@ -79,8 +82,11 @@ as
   ,d_nation_sk
   ,d_region_sk
   ,d_date_sid
-  ,Order_price
-  ,order_line_count
+  ,cco.Total_Amt
+  ,cco.Avg_Discount_Amt
+  ,cco.Avg_Tax_Amt
+  ,cco.Order_Qty
+  ,cco.Order_Line_Count
   from cte_cl2_orders cco
   Inner Join cte_p_dcust cpdc
     On cco.cust_nk=cpdc.d_custkey_nk

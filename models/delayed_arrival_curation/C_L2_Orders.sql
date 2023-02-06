@@ -8,12 +8,16 @@
         )
 }}
 
-With cte_orders_lines as
+With cte_lineItems_Orders as
 (
     Select 
     l_orderkey
-    ,count(l_linekey) as Line_Count
-    from {{ref('C_L1_Orders_Lines')}}
+    ,count(l_linenumber) as Line_Count
+    ,sum(l_extendedprice) as tot_ord_extendedprice
+    ,avg(l_discount) as tot_ord_discount
+    ,avg(l_tax) as tot_ord_tax
+    ,sum(l_quantity) as tot_ord_quantity
+    from {{ref('C_L1_LineItems')}}
 
     {% if is_incremental() %}
 
@@ -39,8 +43,8 @@ With cte_orders_lines as
     (
         Select
         l_orderkey
-        from cte_orders_lines ol
-        where ol.l_orderkey = o.o_orderkey
+        from cte_lineItems_Orders li
+        where li.l_orderkey = o.o_orderkey
     )
 )
 ,cte_orders_agg_logic as
@@ -51,10 +55,13 @@ With cte_orders_lines as
     ,h.o_nationkey as nation_nk
     ,h.o_regionkey as region_nk
     ,h.d_date_sid
-    ,sum(h.o_totalprice) as Order_Price
+    ,sum(l.tot_ord_extendedprice + l.tot_ord_discount + l.tot_ord_tax) as Total_Amt
+    ,avg(l.tot_ord_discount) as Avg_Discount_Amt
+    ,avg(l.tot_ord_tax) as Avg_Tax_Amt
+    ,sum(l.tot_ord_quantity) as Order_Qty
     ,sum(l.line_count) as Order_Line_Count
     from cte_orders h
-    Inner Join cte_orders_lines l
+    Inner Join cte_lineItems_Orders l
     On h.o_orderkey = l.l_orderkey
     Group by
     h.o_custkey
