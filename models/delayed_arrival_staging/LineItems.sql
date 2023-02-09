@@ -1,4 +1,12 @@
-{{ config(schema='CUR') }}
+--This is an example of an incremental load using an ETL/ELT datetime stamp
+
+{{config(
+        materialized = 'incremental'
+        ,tags = ["curation","orders","lines"]
+        ,unique_key = ['l_orderkey','l_linenumber']
+        ,schema='CUR'
+        )
+}}
 
 With LineItems_America as 
 (
@@ -21,6 +29,12 @@ With LineItems_America as
     ,DELETE_FLAG
     ,AUDIT_DATETIME
     From LATE_ARRIVING_DEMO.RAW.RAW_LINEITEMS_AMERICA
+    {% if is_incremental() %}
+
+        -- this filter will only be applied on an incremental run
+        where AUDIT_DATETIME > (select max(AUDIT_DATETIME) from {{ this }})
+
+    {% endif %}
 ),
 LineItems_Asia as 
 (
@@ -43,6 +57,12 @@ LineItems_Asia as
     ,DELETE_FLAG
     ,AUDIT_DATETIME
     From LATE_ARRIVING_DEMO.RAW.RAW_LINEITEMS_ASIA
+    {% if is_incremental() %}
+
+        -- this filter will only be applied on an incremental run
+        where AUDIT_DATETIME > (select max(AUDIT_DATETIME) from {{ this }})
+
+    {% endif %}
 )
 
 Select

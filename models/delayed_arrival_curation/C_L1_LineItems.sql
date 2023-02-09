@@ -1,7 +1,7 @@
 --This is an example of an incremental load using an ETL/ELT datetime stamp
 
 {{config(
-        materialized = 'table'
+        materialized = 'incremental'
         ,tags = ["curation","orders","lines"]
         ,unique_key = ['l_orderkey','l_linenumber']
         ,schema='CUR'
