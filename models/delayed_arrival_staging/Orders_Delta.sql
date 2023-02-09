@@ -1,4 +1,10 @@
-{{ config(schema='CUR') }}
+{{ config(
+           materialized = 'view'
+           ,schema='CUR'
+           ,tags = ["curation","orders"]
+    
+         ) 
+}}
 
         With Orders_Delta_America as
         (
@@ -13,9 +19,7 @@
                 ,O_ORDERDATE
                 ,O_CREATE_DATETIME
                 ,O_UPDATE_DATETIME
-            FROM LATE_ARRIVING_DEMO.RAW.RAW_ORDERS_AMERICA_DELTA
-            changes(information => append_only)
-            at(stream => 'LATE_ARRIVING_DEMO.RAW.STM_ORDERS_AMERICA_DELTA')
+            FROM LATE_ARRIVING_DEMO.RAW.STM_ORDERS_AMERICA_DELTA
             QUALIFY 1 = ROW_NUMBER() OVER (PARTITION BY O_ORDERKEY ORDER BY AUDIT_DATETIME DESC)
         ),
 
@@ -32,9 +36,7 @@
                 ,O_ORDERDATE
                 ,O_CREATE_DATETIME
                 ,O_UPDATE_DATETIME
-            FROM LATE_ARRIVING_DEMO.RAW.RAW_ORDERS_ASIA_DELTA
-            changes(information => append_only)
-            at(stream => 'LATE_ARRIVING_DEMO.RAW.STM_ORDERS_ASIA_DELTA')
+            FROM LATE_ARRIVING_DEMO.RAW.STM_ORDERS_ASIA_DELTA
             QUALIFY 1 = ROW_NUMBER() OVER (PARTITION BY O_ORDERKEY ORDER BY AUDIT_DATETIME DESC)
         )
 

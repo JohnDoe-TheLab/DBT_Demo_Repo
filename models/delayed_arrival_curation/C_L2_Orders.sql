@@ -55,7 +55,7 @@ With cte_lineItems_Orders as
     ,h.o_nationkey as nation_nk
     ,h.o_regionkey as region_nk
     ,h.d_date_sid
-    ,sum(l.tot_ord_extendedprice + l.tot_ord_discount + l.tot_ord_tax) as Total_Amt
+    ,sum(l.tot_ord_extendedprice) as Total_Amt
     ,avg(l.tot_ord_discount) as Avg_Discount_Amt
     ,avg(l.tot_ord_tax) as Avg_Tax_Amt
     ,sum(l.tot_ord_quantity) as Order_Qty

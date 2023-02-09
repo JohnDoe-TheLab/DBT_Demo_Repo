@@ -46,4 +46,8 @@ from cte_orders_base B
      from cte_orders_delta D
      where D.O_ORDERKEY = B.O_ORDERKEY
  ) 
+ Union All
+ select
+ *
+ from cte_orders_delta D
  {% endif %}
