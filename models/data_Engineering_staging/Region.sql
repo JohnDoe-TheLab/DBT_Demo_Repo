@@ -6,7 +6,7 @@ with regions as
     r_regionkey
     ,r_name
     from
-    late_arriving_demo.raw.raw_region_america
+    dbt_data_eng_demo.raw.raw_region_america
 
     Union All
 
@@ -14,7 +14,7 @@ with regions as
     r_regionkey
     ,r_name
     from
-    late_arriving_demo.raw.raw_region_asia
+    dbt_data_eng_demo.raw.raw_region_asia
 )
 
 Select * from regions

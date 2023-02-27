@@ -8,7 +8,7 @@ with customers as
     ,c_address
     ,c_acctbal
     ,c_mktsegment
-    from late_arriving_demo.raw.raw_customer_america
+    from dbt_data_eng_demo.raw.raw_customer_america
 
     Union all
 
@@ -18,7 +18,7 @@ with customers as
     ,c_address
     ,c_acctbal
     ,c_mktsegment
-    from late_arriving_demo.raw.raw_customer_asia
+    from dbt_data_eng_demo.raw.raw_customer_asia
 )
 
 select * from customers

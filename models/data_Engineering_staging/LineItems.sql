@@ -28,7 +28,7 @@ With LineItems_America as
     ,cdc_operation
     ,DELETE_FLAG
     ,AUDIT_DATETIME
-    From LATE_ARRIVING_DEMO.RAW.RAW_LINEITEMS_AMERICA
+    From dbt_data_eng_demo.RAW.RAW_LINEITEMS_AMERICA
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run
@@ -56,7 +56,7 @@ LineItems_Asia as
     ,cdc_operation
     ,DELETE_FLAG
     ,AUDIT_DATETIME
-    From LATE_ARRIVING_DEMO.RAW.RAW_LINEITEMS_ASIA
+    From dbt_data_eng_demo.RAW.RAW_LINEITEMS_ASIA
     {% if is_incremental() %}
 
         -- this filter will only be applied on an incremental run

@@ -14,9 +14,9 @@ With DELTA_AMERICA as
             ,O_ORDERDATE
             ,O_CREATE_DATETIME
             ,O_UPDATE_DATETIME
-        FROM LATE_ARRIVING_DEMO.RAW.RAW_ORDERS_AMERICA_DELTA
+        FROM dbt_data_eng_demo.RAW.RAW_ORDERS_AMERICA_DELTA
         changes(information => append_only)
-        at(stream => 'LATE_ARRIVING_DEMO.RAW.STM_ORDERS_AMERICA_DELTA')
+        at(stream => 'dbt_data_eng_demo.RAW.STM_ORDERS_AMERICA_DELTA')
         QUALIFY 1 = ROW_NUMBER() OVER (PARTITION BY O_ORDERKEY ORDER BY AUDIT_DATETIME DESC)
     ),
     HYBRID_AMERICA as
@@ -32,7 +32,7 @@ With DELTA_AMERICA as
       ,B.O_ORDERDATE
       ,B.O_CREATE_DATETIME
       ,B.O_UPDATE_DATETIME
-     FROM LATE_ARRIVING_DEMO.RAW.RAW_ORDERS_AMERICA B --This is the base table
+     FROM dbt_data_eng_demo.RAW.RAW_ORDERS_AMERICA B --This is the base table
      WHERE NOT EXISTS
         (
           SELECT 1
@@ -66,9 +66,9 @@ With DELTA_AMERICA as
             ,O_ORDERDATE
             ,O_CREATE_DATETIME
             ,O_UPDATE_DATETIME
-        FROM LATE_ARRIVING_DEMO.RAW.RAW_ORDERS_ASIA_DELTA
+        FROM dbt_data_eng_demo.RAW.RAW_ORDERS_ASIA_DELTA
         changes(information => append_only)
-        at(stream => 'LATE_ARRIVING_DEMO.RAW.STM_ORDERS_ASIA_DELTA')
+        at(stream => 'dbt_data_eng_demo.RAW.STM_ORDERS_ASIA_DELTA')
         QUALIFY 1 = ROW_NUMBER() OVER (PARTITION BY O_ORDERKEY ORDER BY AUDIT_DATETIME DESC)
     ),
     HYBRID_ASIA as
@@ -84,7 +84,7 @@ With DELTA_AMERICA as
       ,B.O_ORDERDATE
       ,B.O_CREATE_DATETIME
       ,B.O_UPDATE_DATETIME
-     FROM LATE_ARRIVING_DEMO.RAW.RAW_ORDERS_ASIA B --This is the base table
+     FROM dbt_data_eng_demo.RAW.RAW_ORDERS_ASIA B --This is the base table
      WHERE NOT EXISTS
         (
           SELECT 1

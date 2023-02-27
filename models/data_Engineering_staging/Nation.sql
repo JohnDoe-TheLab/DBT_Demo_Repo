@@ -6,7 +6,7 @@ with nations as
     n_nationkey
     ,n_name
     ,n_regionkey
-    from late_arriving_demo.raw.raw_nation_america
+    from dbt_data_eng_demo.raw.raw_nation_america
 
     Union All
 
@@ -14,7 +14,7 @@ with nations as
     n_nationkey
     ,n_name
     ,n_regionkey
-    from late_arriving_demo.raw.raw_nation_asia
+    from dbt_data_eng_demo.raw.raw_nation_asia
 )
 
 Select * from nations

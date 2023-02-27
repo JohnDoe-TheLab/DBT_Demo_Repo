@@ -19,7 +19,7 @@
       ,B.O_ORDERDATE
       ,B.O_CREATE_DATETIME
       ,B.O_UPDATE_DATETIME
-     FROM LATE_ARRIVING_DEMO.RAW.RAW_ORDERS_AMERICA B --This is the base table
+     FROM dbt_data_eng_demo.RAW.RAW_ORDERS_AMERICA B --This is the base table
     ), 
     ORDERS_ASIA as
     (
@@ -34,7 +34,7 @@
       ,B.O_ORDERDATE
       ,B.O_CREATE_DATETIME
       ,B.O_UPDATE_DATETIME
-     FROM LATE_ARRIVING_DEMO.RAW.RAW_ORDERS_ASIA B --This is the base table
+     FROM dbt_data_eng_demo.RAW.RAW_ORDERS_ASIA B --This is the base table
       )
       
       Select

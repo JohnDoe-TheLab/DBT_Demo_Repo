@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'delayed_arrival_project'
+name: 'data_engineering_project'
 version: '1.0.0'
 config-version: 2
 
@@ -32,25 +32,25 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  delayed_arrival_project:
-    # Applies to all files under models/delayed_arrival_staging/
-    delayed_arrival_staging:
+  data_engineering_project:
+    # Applies to all files under models/data_Engineering_staging/
+    data_Engineering_staging:
       materialized: view
-      database: LATE_ARRIVING_DEMO
+      database: DBT_Data_Eng_Demo
       schema: CUR
       enabled: true
-    delayed_arrival_curation:
+    data_Engineering_curation:
       materialized: view
-      database: LATE_ARRIVING_DEMO
+      database: DBT_Data_Eng_Demo
       schema: CUR
       enabled: true
-    delayed_arrival_presentation:
+    data_Engineering_presentation:
       materialized: view
-      database: LATE_ARRIVING_DEMO
+      database: DBT_Data_Eng_Demo
       schema: PRES
       enabled: true
     No_Run_Area:
       materialized: view
-      database: LATE_ARRIVING_DEMO
+      database: DBT_Data_Eng_Demo
       schema: PRES
       enabled: false
